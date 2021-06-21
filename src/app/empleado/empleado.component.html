@@ -1,0 +1,83 @@
+<h1 style="color: blueviolet;">{{titulo}}</h1>
+<hr/>
+<h3>Selector de Colores</h3>
+<button (click)="LogColorSelecionado()">Ver Color</button>
+<br/>
+<input type="text" [(ngModel)]="color_selecionado"/>
+<pre 
+    [style.border] = "color_selecionado == 'red' ? '5px solid black' : '1px solid green'"
+    [class.fondoAzul] = "color_selecionado == 'blue'"
+    [ngClass] = "['letraGrande','fondoGreen']">
+    <strong>Color elegido:</strong>
+    {{color_selecionado}}</pre>
+<div [ngStyle]="{ 
+    'background' : color_selecionado, 
+    'width' : '200px',
+    'height' : '200px',
+    'float' : 'right',
+    'margin-right' : '10%'
+}"></div>
+<div style="clear: both;"></div>
+
+<hr/>
+<h3>Colores Switch</h3>
+<ul [ngSwitch]="color">
+    <li *ngSwitchCase="'red'" [ngStyle]="{ 
+        'background' : color, 
+        'color' : 'white',
+        'padding' : '20px'
+    }">Es de color ROJO</li>
+    <li *ngSwitchCase="'green'" [ngStyle]="{ 
+        'background' : color, 
+        'color' : 'white',
+        'padding' : '20px'
+    }">Es de color Verde</li>
+    <li *ngSwitchCase="'blue'" [ngStyle]="{ 
+        'background' : color, 
+        'color' : 'white',
+        'padding' : '20px'
+    }">Es de color AZUL</li>
+</ul>
+
+<hr/>
+<strong>Trabajador estrella</strong>
+<br/>
+<br/>
+
+<div *ngIf="trabjador_externo == true">
+    <button (click)="CambiarExterno(false)">Mostar Empleado</button>
+    <ul>
+        <li>{{trabajadores[0].nombre}}</li>
+        <li>{{trabajadores[0].edad}}</li>
+        <li>{{trabajadores[0].cargo}}</li>
+        <li *ngIf="trabajadores[0].contratado == true">Trabajador Contratado</li>
+        <li *ngIf="trabajadores[0].contratado == false">Trabajador No esta Contratado</li>
+    </ul>
+</div>
+
+<div *ngIf="trabjador_externo == false">
+    <button (click)="CambiarExterno(true)">Mostar Trabajador</button>
+    <ul>
+        <li>{{empleado.nombre}}</li>
+        <li>{{empleado.edad}}</li>
+        <li>{{empleado.cargo}}</li>
+        <li *ngIf="empleado.contratado == true">Empleado Contratado</li>
+        <li *ngIf="empleado.contratado == false">Empleado No esta Contratado</li>
+    </ul>
+</div>
+
+<hr/>
+<h3>Lista de Empleados</h3>
+<ul>
+    <li *ngFor="let empleado of trabajadores; let i = index">
+        <strong>Empleado {{i+1}} - {{ empleado.fecha.toString()  | formatea: 'Date' }} </strong>
+        <ul>
+            <li>{{empleado.nombre}}</li>
+            <li>{{empleado.edad}}</li>
+            <li>{{empleado.cargo}}</li>
+            <li *ngIf="empleado.contratado == true">Empleado Contratado</li>
+            <li *ngIf="empleado.contratado == false">Empleado No esta Contratado</li>
+        </ul>
+    </li>
+</ul>
+
